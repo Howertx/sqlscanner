@@ -7,36 +7,40 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import unquote
 
-def scan_sites_from_text():
+def scantext():
     sites_text = result_text.get(1.0, tk.END)
     sites = sites_text.splitlines()
     result_text.delete(1.0, tk.END)
 
     for site in sites:
-        check_sql_injection(site.strip())
+        scan(site.strip())
 
 def scan_site():
     url = site_entry.get()
     result_text.delete(1.0, tk.END)
-    check_sql_injection(url)
+    scan(url)
 
 def search_dork():
     dork = dork_entry.get()
     num = int(num_entry.get())
     result_text.delete(1.0, tk.END)
-    search_google(dork, num)
+    search(dork, num)
 
 def clear_results():
     result_text.delete(1.0, tk.END)
 
-def check_sql_injection(url):
+def scan(url):
     payloads = ["'"]
     for payload in payloads:
         r = requests.get(url + payload)
+
+
         if "mysql_fetch_array()" in r.text or "You have an error in your SQL syntax" in r.text:
             result_text.insert(tk.END, "SQL Açığı: " + url + "\n")
 
-def search_google(search_term, num):
+
+
+def search(search_term, num):
     res = requests.get(f"https://www.google.com/search?q={search_term}&num={num}")
     soup = BeautifulSoup(res.text, "html.parser")
     search_results = soup.select(".kCrYT a")
@@ -51,8 +55,10 @@ def search_google(search_term, num):
     for link in links:
         result_text.insert(tk.END, link + "\n")
 
+
 root = tk.Tk()
-root.title("SQL Scanner")
+
+root.title(f"SQL Scanner")
 root.geometry("600x400")
 site_frame = tk.Frame(root)
 site_frame.pack(pady=10)
@@ -80,9 +86,10 @@ result_text = tk.Text(root, height=12, width=50)
 result_text.pack(pady=10)
 clear_button = tk.Button(root, text="Sonuçları Temizle", command=clear_results)
 clear_button.pack(side="left", padx=5)
-scan_button = tk.Button(root, text="Sonuçları Tara", command=scan_sites_from_text)
+scan_button = tk.Button(root, text="Sonuçları Tara", command=scantext)
 scan_button.pack(side="left", padx=5)
-space_label = tk.Label(root, text="")
-space_label.pack()
+author = tk.Label(root, text=f"                                                     Code by Howert")
+author.pack(side="left")
 
 root.mainloop()
+
