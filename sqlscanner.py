@@ -1,5 +1,5 @@
 # Code by Howert
-# Discord: howert1337
+# Discord: howert1337x
 # Telegram: howertxd
 
 import tkinter as tk
