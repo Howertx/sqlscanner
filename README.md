@@ -1,5 +1,5 @@
 Dork tarama ve SQL açıklı siteleri tespit etmek için basit bir yazılımdır.
-Program geliştirilmeye devam edecektir ve açık kaynak kodludur inceleyebilirsiniz ama emek hırsızlığı yapmayın.
+Program geliştirilmeye devam edecektir ve açık kaynak kodludur inceleyebilirsiniz.
 
-Discord: howert1337x |
+Discord: howert1337 |
 Telegram: howertxd
